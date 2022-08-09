@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public Vector3 direction = new Vector3(0f,0f,1f);
     public float Speed = 200f;
+    public float cameraAxisX = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -63,5 +64,12 @@ public class Player : MonoBehaviour
 
     private void MovePLayer(Vector3 direction) {
         transform.Translate(direction * Speed * Time.deltaTime);
+    }
+
+    public void RotatePlayer()
+    {
+        cameraAxisX += Input.GetAxis("Mouse X");
+        Quaternion newRotation = Quaternion.Euler(0,cameraAxisX, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, 2f * Time.deltaTime);
     }
 }
