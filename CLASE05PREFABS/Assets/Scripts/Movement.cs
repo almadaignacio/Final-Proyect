@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("DestroyDelay", LiveTime);
+        //Invoke("DestroyDelay", LiveTime);
     }
 
     // Update is called once per frame
@@ -24,22 +24,22 @@ public class Movement : MonoBehaviour
     {
         Move();
 
-        if(Input.GetKeyDown(KeyCode.Space)){
-            Scale();
-        }
+        //if(Input.GetKeyDown(KeyCode.Space)){
+          //  Scale();
+        //}
     }
 
     private void Move() {
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    private void DestroyDelay()
-    {
-        Destroy(gameObject);
-    }
+    //private void DestroyDelay()
+    //{
+      //  Destroy(gameObject);
+    //}
 
-    private void Scale() {
+    //private void Scale() {
           
-        transform.localScale = BulletScale;
-    }
+      //  transform.localScale = BulletScale;
+    //}
 }

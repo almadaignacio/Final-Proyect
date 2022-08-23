@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
    [SerializeField]
     [Range(1f, 10f)]
     private float speed = 2f;
+    private float runDelay = 10f;
+
     //La enumeración no permite definir una estructura de tipos de elementos.
     enum ZombieTypes { Crawler, Stalker, Rioter };
 
@@ -16,6 +18,8 @@ public class Enemy : MonoBehaviour
 
     //Guardamos una referencia al transform del player para movernos en su dirección.
     [SerializeField] Transform playerTransform;
+
+    [SerializeField] Animator enemyAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +37,17 @@ public class Enemy : MonoBehaviour
                 MoveForward();
                 break;
             case ZombieTypes.Stalker:
-                ChasePlayer();
+                Invoke("StalkerMove",runDelay);
                 break;
             case ZombieTypes.Rioter:
                 RotateAroundPlayer();
                 break;
         }
+    }
+
+    void StalkerMove(){
+        ChasePlayer();
+        enemyAnimator.SetBool("IsRun", true);
     }
 
   private void RotateAroundPlayer()
@@ -55,7 +64,7 @@ public class Enemy : MonoBehaviour
         // Con la resta vectorial obtengo la dirección que me permite desplazarme hacia el player.
         Vector3 direction = (playerTransform.position - transform.position);
         // Uso la magnitude para avanzar solo hasta cierta distancia (y no superponer el enemigo)
-        if (direction.magnitude > 1f)
+        if (direction.magnitude > 2f)
         {
            // Uso normalized para trasformar el vector en un vector de magnitud uno (para avanzar de forma gradual y constante cada frame)
            transform.position += direction.normalized * speed * Time.deltaTime;

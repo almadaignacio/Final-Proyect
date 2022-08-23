@@ -5,8 +5,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Vector3 direction = new Vector3(0f,0f,1f);
-    public float Speed = 200f;
+    public float Speed = 6f;
     public float cameraAxisX = 0f;
+    public float SpeedRotation = 200.0f;
+    public float x, y;
+
+    [SerializeField] Animator playerAnimator;
+
+    private Vector3 playerDirection;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +25,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
         /*
         if(Input.GetKeyDown(KeyCode.W))
         {
@@ -41,9 +52,38 @@ public class Player : MonoBehaviour
         Es lo mismo que decir :
         */
 
+        RotatePlayer();
+
+        bool forward = Input.GetKeyDown(KeyCode.W);
+        bool back = Input.GetKeyDown(KeyCode.S);
+        bool left = Input.GetKeyDown(KeyCode.A);
+        bool right = Input.GetKeyDown(KeyCode.D);
+        //Es posible simplificar la notación del if si el bloque contiene una única línea.
+        if (forward) playerAnimator.SetTrigger("FORWARD");
+        if (back) playerAnimator.SetTrigger("BACK");
+        if (left) playerAnimator.SetTrigger("LEFT");
+        if (right) playerAnimator.SetTrigger("RIGHT");
+        // Estamos en reposo si se deja de presionar alguna de las teclas de movimiento.
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            if (!IsAnimation("IDLE")) playerAnimator.SetTrigger("IDLE");
+        }
+        //Limpiamos la dirección de movimiento en cada frame.
+        playerDirection = Vector3.zero;
+        //Elegimos una dirección en función de la tecla que se mantiene presionada.
+        if (Input.GetKey(KeyCode.W)) playerDirection += Vector3.forward;
+        if (Input.GetKey(KeyCode.S)) playerDirection += Vector3.back;
+        if (Input.GetKey(KeyCode.D)) playerDirection += Vector3.right;
+        if (Input.GetKey(KeyCode.A)) playerDirection += Vector3.left;
+        //Nos movemos solo si hay una dirección diferente que vector zero.
+        if (playerDirection != Vector3.zero) MovePlayer(playerDirection);
+/*
         if(Input.GetKey(KeyCode.W))
         {
             MovePLayer(Vector3.forward);
+            if(!IsAnimation("WALKING")){
+                PlayerAnimator.SetTrigger("WALKING");
+            }
         }
 
         if(Input.GetKey(KeyCode.A))
@@ -60,9 +100,15 @@ public class Player : MonoBehaviour
         {
             MovePLayer(Vector3.right);
         }
+        */
     }
 
-    private void MovePLayer(Vector3 direction) {
+    private bool IsAnimation(string animName)
+    {
+        return playerAnimator.GetCurrentAnimatorStateInfo(0).IsName(animName);
+    }
+
+    private void MovePlayer(Vector3 direction) {
         transform.Translate(direction * Speed * Time.deltaTime);
     }
 
