@@ -1,4 +1,4 @@
-# Clase 7 desafio 06 rehecho 
+# 1era Entrega Proyecto final. 
 
 Unity Engine 2021.3.6 LTS
 
