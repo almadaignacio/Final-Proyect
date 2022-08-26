@@ -77,6 +77,11 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) playerDirection += Vector3.left;
         //Nos movemos solo si hay una dirección diferente que vector zero.
         if (playerDirection != Vector3.zero) MovePlayer(playerDirection);
+
+
+
+
+
 /*
         if(Input.GetKey(KeyCode.W))
         {

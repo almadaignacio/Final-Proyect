@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Floor
+  - munition
+  - Powerups
+  - Munitions
+  - TrampoLine
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,11 +18,11 @@ TagManager:
   - Water
   - UI
   - Portal
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Floor
+  - Wall
+  - Enemy
+  - Player
+  - Objects
   - 
   - 
   - 
