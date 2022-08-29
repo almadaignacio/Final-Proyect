@@ -6,6 +6,7 @@ public class PlayerCollision : MonoBehaviour
 {
     private PlayerData playerData;
     private PlayerMoveForce playerMove;
+    [SerializeField] WeaponManager weaponManager;
 
     private void Start()
     {
@@ -64,13 +65,34 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.CompareTag("Trampoline"))
         {
             /*
-             Cambio de velocidad instantáneo (ForceMode.VelocityChange)
+             Cambio de velocidad instantï¿½neo (ForceMode.VelocityChange)
              Aqui la fuerza se traduce en un cambio de velocidad,
              por lo cual el movimiento se altera significantemente.
-             El cálculo Vector3.up + Vector3.forward permite al
+             El cï¿½lculo Vector3.up + Vector3.forward permite al
              aplicar fuerza en "diagonal"(hacia arriba y adelante)
             */
             playerMove.MyRigidbody.AddForce((Vector3.up + Vector3.forward) * playerMove.MaxSpeed * 5f, ForceMode.VelocityChange);
+        }
+
+        if (other.gameObject.CompareTag("Weapons"))
+        {
+            other.gameObject.SetActive(false);
+            weaponManager.WeaponList.Add(other.gameObject);
+
+            //COLA
+           // weaponManager.WeaponQueue.Enqueue(other.gameObject);
+            //Debug.Log("ELEMENTOS EN LA COLA " + weaponManager.WeaponQueue.Count);
+            
+            //STACK
+           // weaponManager.WeaponStack.Push(other.gameObject);
+            //Debug.Log("ELEMENTOS EN LA STACK " + weaponManager.WeaponStack.Count);
+            
+            //DIC
+            if (!weaponManager.WeaponDirectory.ContainsKey(other.gameObject.name))
+            {
+                weaponManager.WeaponDirectory.Add(other.gameObject.name, other.gameObject);
+                Debug.Log(weaponManager.WeaponDirectory[other.gameObject.name]);
+            }
         }
     }
 
