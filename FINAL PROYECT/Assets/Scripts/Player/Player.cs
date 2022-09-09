@@ -58,11 +58,13 @@ public class Player : MonoBehaviour
         bool back = Input.GetKeyDown(KeyCode.S);
         bool left = Input.GetKeyDown(KeyCode.A);
         bool right = Input.GetKeyDown(KeyCode.D);
+        bool jump = Input.GetKeyDown(KeyCode.Space);
         //Es posible simplificar la notación del if si el bloque contiene una única línea.
         if (forward) playerAnimator.SetTrigger("FORWARD");
         if (back) playerAnimator.SetTrigger("BACK");
         if (left) playerAnimator.SetTrigger("LEFT");
         if (right) playerAnimator.SetTrigger("RIGHT");
+        if (jump) playerAnimator.SetTrigger("JUMP");
         // Estamos en reposo si se deja de presionar alguna de las teclas de movimiento.
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {

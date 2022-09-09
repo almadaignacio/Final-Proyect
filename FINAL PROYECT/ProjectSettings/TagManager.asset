@@ -8,8 +8,10 @@ TagManager:
   - munition
   - Powerups
   - Munitions
-  - TrampoLine
   - Enemy
+  - Trampoline
+  - Weapon
+  - Weapons
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Enemy
   - Player
   - Objects
-  - 
+  - Weapon
   - 
   - 
   - 

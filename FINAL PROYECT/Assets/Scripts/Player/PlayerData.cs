@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerData : MonoBehaviour
 {
     [SerializeField]
-    [Range(1, 3)]
-    private int live = 1;
+    [Range(0, 100)]
+    private int live = 100;
     public int HP { get { return live; } }
 
     public void Healing(int value)
