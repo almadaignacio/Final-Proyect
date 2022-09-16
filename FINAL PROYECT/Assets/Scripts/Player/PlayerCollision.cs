@@ -10,7 +10,7 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] WeaponManager weaponManager;
     public static event Action Ondead;
     public static event Action<int> OnChangeHP;
-    public static event Action Dying;
+    //public static event Action Dying;
 
     private void Start()
     {
@@ -31,11 +31,11 @@ public class PlayerCollision : MonoBehaviour
             PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
 
 
-            if (playerData.HP == 30)
-            {
-                Debug.Log("ESTAS MURIENDO, DEBES CURARTE");
-                Dying?.Invoke();
-            }
+            //if (playerData.HP == 30)
+            //{
+              //  Debug.Log("ESTAS MURIENDO, DEBES CURARTE");
+                //Dying?.Invoke();
+            //}
 
             //SUMAS SCORE
             GameManager.Score++;
@@ -66,6 +66,8 @@ public class PlayerCollision : MonoBehaviour
         {
             playerMove.CanJump = true;
         }
+
+        
     }
 
     private void OnCollisionExit(Collision other)
@@ -112,6 +114,13 @@ public class PlayerCollision : MonoBehaviour
                 weaponManager.WeaponDirectory.Add(other.gameObject.name, other.gameObject);
                 Debug.Log(weaponManager.WeaponDirectory[other.gameObject.name]);
             }
+
+
+        }
+
+        if (other.gameObject.CompareTag("Goal"))
+        {
+            PlayerEvent.OnWinCall();
         }
     }
 
