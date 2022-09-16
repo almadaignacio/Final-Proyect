@@ -6,6 +6,6 @@ public class Munition : MonoBehaviour
 {
     [SerializeField]
     [Range(2, 10)]
-    private int damagePoints = 2;
+    private int damagePoints = 10;
     public int DamagePoints { get { return damagePoints; } }
 }

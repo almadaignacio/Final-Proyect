@@ -13,15 +13,23 @@ public class HUDManager : MonoBehaviour
     //[SerializeField] private Text selectedText;
     //[SerializeField] private GameObject weaponPanel;
     //[SerializeField] private GameObject buyPanel;
+    private PlayerCollision Playercollision;
+    [SerializeField] private GameObject GameOverPanel;
+    [SerializeField] private GameObject WarningPanel;
     [SerializeField] private Slider hpBar;
 
     private void Awake()
     {
         Debug.Log("EJECUTANDO AWAKE");
+
+        //Playercollision = GetComponent<PlayerCollision>();
         if (instance == null)
         {
             instance = this;
             Debug.Log(instance);
+            PlayerCollision.Ondead += GameOver;
+            PlayerCollision.OnChangeHP += SetHPBar;
+            PlayerCollision.Dying += Warning;
         }
         else
         {
@@ -44,5 +52,24 @@ public class HUDManager : MonoBehaviour
     public static void SetHPBar(int newValue)
     {
         instance.hpBar.value = newValue;
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("RESPUESTA EN OTRO SCRIPT");
+        GameOverPanel.SetActive(true);
+    }
+
+    private void Warning()
+    {
+        Debug.Log("RESPUESTA EN OTRO SCRIPT");
+        WarningPanel.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollision.Ondead -= GameOver; 
+        PlayerCollision.OnChangeHP -= SetHPBar;
+        PlayerCollision.Dying -= Warning;
     }
 }

@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerCollision : MonoBehaviour
 {
     private PlayerData playerData;
     private PlayerMoveForce playerMove;
     [SerializeField] WeaponManager weaponManager;
+    public static event Action Ondead;
+    public static event Action<int> OnChangeHP;
+    public static event Action Dying;
 
     private void Start()
     {
@@ -23,7 +27,15 @@ public class PlayerCollision : MonoBehaviour
             Destroy(other.gameObject);
              //sumar vida
             playerData.Healing(other.gameObject.GetComponent<Health>().HealPoints);
-            HUDManager.SetHPBar(playerData.HP);
+            //HUDManager.SetHPBar(playerData.HP);
+            PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
+
+
+            if (playerData.HP == 30)
+            {
+                Debug.Log("ESTAS MURIENDO, DEBES CURARTE");
+                Dying?.Invoke();
+            }
 
             //SUMAS SCORE
             GameManager.Score++;
@@ -33,12 +45,16 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.CompareTag("Munitions"))
         {
             Debug.Log("ENTRANDO EN COLISION CON " + other.gameObject.name);
-            playerData.Damage(other.gameObject.GetComponent<Munition>().DamagePoints);
-            HUDManager.SetHPBar(playerData.HP);
             Destroy(other.gameObject);
-            if (playerData.HP <= 0)
+            playerData.Damage(other.gameObject.GetComponent<Munition>().DamagePoints);
+            //HUDManager.SetHPBar(playerData.HP);
+            PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
+            //PlayerCollision.Dying?.Invoke(playerData.HP);
+
+            if(playerData.HP <= 0)
             {
                 Debug.Log("GAME OVER");
+                Ondead?.Invoke();
             }
 
             //RESTAS SCORE

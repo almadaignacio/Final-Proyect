@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 2350366144217043346, guid: 8f2b838937bf3ce499fe912cc972a648, type: 3}
+      propertyPath: m_TagString
+      value: Munitions
+      objectReference: {fileID: 0}
     - target: {fileID: 3158709039170915112, guid: 8f2b838937bf3ce499fe912cc972a648, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -62,6 +66,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2350366144217043346, guid: 8f2b838937bf3ce499fe912cc972a648, type: 3}
   m_PrefabInstance: {fileID: 8547088823710039296}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &-4899763711941114207
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6197922367408958610}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15412812, y: 1.3710904, z: 0.055732206}
+  m_Center: {x: 0, y: -0.0424723, z: 0.000000005181455}
+--- !u!114 &1003577221244886987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6197922367408958610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27607a115eff53942bc441f00bd8df1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePoints: 4
 --- !u!114 &3319890943039059064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,4 +106,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   LiveTime: 3
-  Damage: 1
+  Damage: 4

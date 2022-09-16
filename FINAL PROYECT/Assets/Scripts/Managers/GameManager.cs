@@ -27,4 +27,17 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void SetScore(int newVValue)
+    {
+        score = newVValue * 200;
+        Debug.Log("Desde el GM:" + score);
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollision.OnChangeHP -= SetScore;
+    }
+
+
 }

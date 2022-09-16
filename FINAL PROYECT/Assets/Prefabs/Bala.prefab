@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8238472391272005979}
   m_Layer: 0
   m_Name: Bala
-  m_TagString: Untagged
+  m_TagString: Munitions
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,8 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca69362a1e23a043b3a5e05f8b85c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 1, y: 0, z: 1}
-  BulletScale: {x: 4, y: 4, z: 4}
   speed: 15
   LiveTime: 5
   Damage: 1
