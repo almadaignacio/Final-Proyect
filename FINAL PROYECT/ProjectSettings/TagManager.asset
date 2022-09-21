@@ -12,6 +12,7 @@ TagManager:
   - Trampoline
   - Weapon
   - Weapons
+  - Goal
   layers:
   - Default
   - TransparentFX
