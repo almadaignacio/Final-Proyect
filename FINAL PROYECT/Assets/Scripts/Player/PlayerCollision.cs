@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -10,14 +12,41 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] WeaponManager weaponManager;
     public static event Action Ondead;
     public static event Action<int> OnChangeHP;
+    [SerializeField] Animator playerAnimator;
+    private bool damage;
+
+    public Image bloodEffectImage;
+
+    private float r;
+    private float g;
+    private float b;
+    private float a;
+
+
     //public static event Action Dying;
+
+
+
 
     private void Start()
     {
         playerData = GetComponent<PlayerData>();
         playerMove = GetComponent<PlayerMoveForce>();
         HUDManager.SetHPBar(playerData.HP);
+
+        r = bloodEffectImage.color.r;
+        g = bloodEffectImage.color.g;
+        b = bloodEffectImage.color.b;
+        a = bloodEffectImage.color.a;
+
     }
+
+    void Update()
+    {
+
+    }
+
+
 
     private void OnCollisionEnter(Collision other)
     {
@@ -46,22 +75,42 @@ public class PlayerCollision : MonoBehaviour
         {
             Debug.Log("ENTRANDO EN COLISION CON " + other.gameObject.name);
             Destroy(other.gameObject);
+            damage = true;
             playerData.Damage(other.gameObject.GetComponent<Munition>().DamagePoints);
             //HUDManager.SetHPBar(playerData.HP);
             PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
             //PlayerCollision.Dying?.Invoke(playerData.HP);
+            if (damage) playerAnimator.SetTrigger("DAMAGE");
+            if(damage)
+            {
+                a += 0.01f;
+            }
+            else
+            {
+                a -= 0.01f;
 
-            if(playerData.HP <= 0)
+            }
+
+            a = Mathf.Clamp(a, 0, 1f);
+
+            ChangeColor();
+
+
+            if (playerData.HP <= 0)
             {
                 Debug.Log("GAME OVER");
                 Ondead?.Invoke();
+               // SceneManager.LoadScene("Nivel 1");
             }
 
             //RESTAS SCORE
             GameManager.Score--;
             Debug.Log(GameManager.Score);
         }
+
         
+
+
         if (other.gameObject.CompareTag("Floor"))
         {
             playerMove.CanJump = true;
@@ -115,13 +164,24 @@ public class PlayerCollision : MonoBehaviour
                 Debug.Log(weaponManager.WeaponDirectory[other.gameObject.name]);
             }
 
-
         }
 
         if (other.gameObject.CompareTag("Goal"))
         {
             PlayerEvent.OnWinCall();
         }
+
+        if (other.gameObject.CompareTag("Win"))
+        {
+            SceneManager.LoadScene("Win");
+        }
+    }
+
+    private void ChangeColor()
+    {
+        Color c = new Color(r, g, b, a);
+        bloodEffectImage.color = c;
+
     }
 
     private void OnTriggerExit(Collider other)

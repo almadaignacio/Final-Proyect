@@ -10,6 +10,9 @@ public class Jumper : BaseEnemy
 
     private Rigidbody rbEnemy = null;
 
+    private bool Running;
+    [SerializeField] Animator EnemyAnimator;
+
     private void Start()
     {
         rbEnemy = GetComponent<Rigidbody>();
@@ -21,5 +24,7 @@ public class Jumper : BaseEnemy
     {
         Debug.Log("SALTADO");
         rbEnemy.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        Running = true;
+        if (Running) EnemyAnimator.SetBool("Run", true);
     }
 }

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
 
+
    [SerializeField]
-    [Range(1f, 10f)]
+    [Range(0.2f, 10f)]
     private float speed = 2f;
     private float runDelay = 10f;
 
@@ -24,7 +26,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -85,34 +87,48 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, 1.5f * Time.deltaTime);
     }
 
-/*
-    private void MoveForward()
+    private void OnCollisionEnter(Collision other)
     {
-        LookPlayer();
-        transform.Translate(Vector3.forward * Speed * Time.deltaTime);
-    }
-
-    private void ChasePlayer()
-    {
-        LookPlayer();
-        Vector3 direction = (playerTransform.position - transform.position);
-        if(direction.magnitude > 2f)
+        //SceneManager.GetActiveScene().buildIndex;
+        if (other.gameObject.CompareTag("Player"))
         {
-        transform.position += direction.normalized * Speed * Time.deltaTime;;
+            SceneManager.LoadScene("Game Over");
         }
+
     }
 
-    private void RotateAroundPlayer()
+    public void LoadGame(int index)
     {
-        LookPlayer();
-        transform.RotateAround(playerTransform.position, Vector3.up, 5f * Speed * Time.deltaTime);
+        SceneManager.LoadScene("Game Over");
     }
-    
-    private void LookPlayer()
-    {
-        Quaternion newRotation = Quaternion.LookRotation(playerTransform.position - transform.position);
-        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, 1.5f * Time.deltaTime);
-    }
-*/
+    /*
+        private void MoveForward()
+        {
+            LookPlayer();
+            transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+        }
+
+        private void ChasePlayer()
+        {
+            LookPlayer();
+            Vector3 direction = (playerTransform.position - transform.position);
+            if(direction.magnitude > 2f)
+            {
+            transform.position += direction.normalized * Speed * Time.deltaTime;;
+            }
+        }
+
+        private void RotateAroundPlayer()
+        {
+            LookPlayer();
+            transform.RotateAround(playerTransform.position, Vector3.up, 5f * Speed * Time.deltaTime);
+        }
+
+        private void LookPlayer()
+        {
+            Quaternion newRotation = Quaternion.LookRotation(playerTransform.position - transform.position);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, 1.5f * Time.deltaTime);
+        }
+    */
 
 }
