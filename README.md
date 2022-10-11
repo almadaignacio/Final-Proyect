@@ -6,6 +6,6 @@ Entrega Proyecto final.
  
  Controles WASD, espacio para saltar, E para interactuar con las puertas y llaves.
  
- El juego comienza en la escena Main UI, luego a la escena "Nivel 1" para después pasar al nivel "Nivel 2" y ahí pasar a "Game Over" o "Win". 
+ El juego comienza en la escena "UI", luego a la escena "Nivel 1" para después pasar al nivel "Nivel 2" y ahí pasar a "Game Over" o "Win". 
 
 
